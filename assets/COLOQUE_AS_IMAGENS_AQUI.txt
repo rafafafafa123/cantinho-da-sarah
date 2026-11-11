@@ -1,0 +1,5 @@
+Coloque nesta pasta as imagens PNG dos personagens:
+imagem1.png = Zenitsu
+imagem2.png = Nezuko
+imagem3.png = Sky
+imagem4.png = Shadow

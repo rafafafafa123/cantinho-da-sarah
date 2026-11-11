@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111426">
+  <meta name="description" content="Três mini-jogos para Nezuko, Sky e Shadow.">
+  <title>Cantinho da Sarah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <header class="site-header">
+    <button class="brand" data-home aria-label="Voltar para o início">
+      <span class="brand-mark">✦</span>
+      <span class="brand-copy"><strong>Cantinho da Sarah</strong><small>Nezuko, Sky e Shadow em apuros</small></span>
+    </button>
+    <button id="musicBtn" class="sound-btn" type="button" aria-pressed="true" aria-label="Desligar efeitos sonoros">
+      <span id="soundIcon">🔊</span><span class="sound-label">SOM</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="page home-page active" aria-labelledby="homeTitle">
+      <div class="hero">
+        <div class="hero-kicker"><span class="kicker-dot"></span> ARCADE PARTICULAR</div>
+        <p class="eyebrow">TRÊS JOGOS. NENHUM SOSSEGO.</p>
+        <h1 id="homeTitle">Escolhe o caos<br><span>de hoje.</span></h1>
+        <p class="hero-copy">Nezuko tentando escapar, Sky enfrentando Shadow e um gato preto que acha que ninguém consegue encontrá-lo.</p>
+        <button id="randomGame" class="primary-btn" type="button"><span>🎲</span> Surpreenda-me</button>
+        <div class="hero-decoration decor-star star-one">✦</div>
+        <div class="hero-decoration decor-star star-two">✧</div>
+        <div class="hero-decoration decor-cat">🐾</div>
+      </div>
+
+      <section class="games-section" aria-label="Escolha um jogo">
+        <div class="section-heading">
+          <div><p class="eyebrow">SELECIONE SUA MISSÃO</p><h2>O que vai ser?</h2></div>
+          <span class="section-count">03 JOGOS</span>
+        </div>
+        <div class="games-grid">
+          <button class="game-card run-card" data-game="run" type="button">
+            <span class="card-number">01</span><span class="card-art run-art"><span class="art-bolt">ϟ</span><span class="art-flower">🌸</span></span>
+            <span class="card-copy"><small>PERSEGUIÇÃO</small><strong>Foge, Nezuko!</strong><span>Guie a Nezuko pelo cenário. Zenitsu está preparando outra arrancada.</span></span>
+            <span class="card-footer"><span>ABRIR JOGO</span><b>↗</b></span>
+            <span class="best-record" id="bestRun">RECORDE —</span>
+          </button>
+
+          <button class="game-card battle-card" data-game="battle" type="button">
+            <span class="card-number">02</span><span class="card-art battle-art"><span class="art-cloud">☁</span><span class="art-moon">☾</span></span>
+            <span class="card-copy"><small>BATALHA FELINA</small><strong>Sky vs Shadow</strong><span>Escolha seu gato, leia o adversário e use cada turno com cuidado.</span></span>
+            <span class="card-footer"><span>ABRIR JOGO</span><b>↗</b></span>
+            <span class="best-record" id="bestBattle">VITÓRIAS 0</span>
+          </button>
+
+          <button class="game-card snack-card" data-game="snack" type="button">
+            <span class="card-number">03</span><span class="card-art snack-art"><span class="art-search">🍗</span><span class="art-paw">😼</span></span>
+            <span class="card-copy"><small>CAOS FELINO</small><strong>Operação Petisco</strong><span>Corra atrás dos petiscos, faça combos e não deixe o gato comer tudo.</span></span>
+            <span class="card-footer"><span>ABRIR JOGO</span><b>↗</b></span>
+            <span class="best-record" id="bestSnack">RECORDE —</span>
+          </button>
+        </div>
+      </section>
+      <div class="home-footnote"><span>✦</span><span>Os recordes ficam salvos neste aparelho.</span></div>
+    </section>
+
+    <!-- NEZUKO CHASE -->
+    <section id="run" class="page game-page" aria-labelledby="runTitle">
+      <div class="game-top">
+        <button class="back-btn" data-home type="button"><span>←</span> Cantinho</button>
+        <div class="game-title-group"><span class="game-title-icon">🌸</span><div><p class="eyebrow">JOGO 01 · PERSEGUIÇÃO</p><h2 id="runTitle">Foge, Nezuko!</h2></div></div>
+        <div class="top-stat"><small>TEMPO</small><strong id="runScore">0.0s</strong></div>
+      </div>
+
+      <div class="run-hud">
+        <div class="hud-card"><small>DISTÂNCIA</small><strong id="runDistance">0 m</strong></div>
+        <div class="hud-card stamina-card"><div class="hud-line"><small>FÔLEGO</small><strong id="staminaText">100%</strong></div><div class="meter"><i id="runStamina"></i></div></div>
+        <div class="hud-card danger-card"><small>ZENITSU</small><strong id="runDanger" class="danger-low">DISTANTE</strong></div>
+      </div>
+
+      <div class="run-shell">
+        <div id="runStage" class="chase-stage" aria-label="Campo de fuga. Arraste para controlar a Nezuko.">
+          <div class="stage-sky"></div><div class="stage-floor"></div>
+          <div class="stage-cloud cloud-a"></div><div class="stage-cloud cloud-b"></div>
+          <div class="stage-lantern lantern-a">✦</div><div class="stage-lantern lantern-b">✧</div>
+          <div class="stage-track track-a"></div><div class="stage-track track-b"></div>
+          <div id="runPickup" class="run-pickup hidden" aria-label="Pétala de energia">🌸</div>
+          <div id="thunderWarning" class="thunder-warning hidden">
+            <span class="warning-icon">⚡</span><strong>RESPIRAÇÃO DO TROVÃO</strong><small>Zenitsu vai avançar. Mude de direção!</small>
+          </div>
+          <div id="nezuko" class="chaser-character nezuko" aria-label="Nezuko">
+            <img src="assets/imagem2.png" alt="Nezuko"><span class="sprite-fallback">🎀</span><small>NEZUKO</small>
+          </div>
+          <div id="zenitsu" class="chaser-character zenitsu" aria-label="Zenitsu">
+            <img src="assets/imagem1.png" alt="Zenitsu"><span class="sprite-fallback">⚡</span><small>ZENITSU</small>
+          </div>
+          <div id="runFx" class="run-fx" aria-hidden="true"></div>
+          <div id="runMessage" class="run-message" aria-live="polite"></div>
+          <div class="run-stage-controls">
+            <span class="move-hint"><span class="finger-icon">☝</span><span>ARRASTE PARA GUIAR</span></span>
+            <button id="dashBtn" class="dash-btn" type="button" disabled><span>⚡</span><b>DASH</b><small id="dashHint">35 FÔLEGO</small></button>
+          </div>
+
+          <div id="runStart" class="game-overlay">
+            <div class="overlay-panel">
+              <div class="overlay-symbol">🌸</div><p class="eyebrow">MISSÃO DA NEZUKO</p><h3>ELE ESTÁ CHEGANDO.</h3>
+              <p>Arraste o dedo pelo campo para guiar a Nezuko. Zenitsu corre atrás dela e, de tempos em tempos, prepara a Respiração do Trovão.</p>
+              <div class="instruction-row"><span>☝️</span><div><b>Movimento</b><small>Toque e arraste no campo</small></div></div>
+              <div class="instruction-row"><span>⚡</span><div><b>Dash</b><small>Toque no botão para uma arrancada. Gasta 35 de fôlego.</small></div></div>
+              <button id="runStartBtn" class="primary-btn full-btn" type="button">COMEÇAR A FUGA <span>→</span></button>
+            </div>
+          </div>
+
+          <div id="runPause" class="game-overlay hidden">
+            <div class="overlay-panel compact-panel"><div class="overlay-symbol">Ⅱ</div><h3>PAUSA</h3><p>A perseguição está parada. Zenitsu também.</p><button id="runResumeBtn" class="primary-btn full-btn" type="button">CONTINUAR</button><button class="quiet-btn" data-home type="button">Encerrar partida</button></div>
+          </div>
+
+          <div id="runEnd" class="game-overlay hidden">
+            <div class="overlay-panel result-panel">
+              <div id="runEndEmoji" class="overlay-symbol">🏃‍♀️</div><p class="eyebrow" id="runEndEyebrow">RESULTADO DA FUGA</p><h3 id="runEndTitle">NEZUKO ESCAPOU!</h3>
+              <p id="runEndText"></p>
+              <div class="result-number"><small>TEMPO DE FUGA</small><strong id="runFinal">0.0s</strong></div>
+              <button id="runAgain" class="primary-btn full-btn" type="button">TENTAR DE NOVO <span>↻</span></button>
+              <button class="quiet-btn" data-home type="button">Voltar ao cantinho</button>
+            </div>
+          </div>
+        </div>
+        <div class="run-bottomline"><span><i class="legend-dot pink"></i> Nezuko</span><span><i class="legend-dot yellow"></i> Zenitsu</span><span><i class="legend-dot cyan"></i> Pétala recupera fôlego</span><button id="runPauseBtn" type="button" disabled>Ⅱ PAUSAR</button></div>
+      </div>
+    </section>
+
+    <!-- SKY VS SHADOW -->
+    <section id="battle" class="page game-page" aria-labelledby="battleTitle">
+      <div class="game-top">
+        <button class="back-btn" data-home type="button"><span>←</span> Cantinho</button>
+        <div class="game-title-group"><span class="game-title-icon">🐾</span><div><p class="eyebrow">JOGO 02 · BATALHA FELINA</p><h2 id="battleTitle">Sky vs Shadow</h2></div></div>
+        <div class="top-stat"><small>RODADA</small><strong id="round">1</strong></div>
+      </div>
+
+      <div class="battle-wrap">
+        <div class="arena" id="arena">
+          <div class="arena-glow"></div><div class="arena-floor"></div>
+          <div class="battle-arena-head"><span>ARENA DOS GATOS</span><span id="battleTurnLabel">AGUARDANDO ESCOLHA</span></div>
+          <div class="fighter fighter-sky" id="skyFighter">
+            <div class="fighter-head"><b>SKY</b><span id="skyState">PRONTA</span></div>
+            <div class="hp"><i id="skyHp"></i></div><div class="fighter-pic" id="skyPic"><img src="assets/imagem3.png" alt="Sky"><span class="sprite-fallback">☁️</span></div>
+            <div class="fighter-caption">A GATA ÁGIL</div><div class="status-row" id="skyStatus"></div>
+          </div>
+          <div class="versus">VS</div>
+          <div class="fighter fighter-shadow" id="shadowFighter">
+            <div class="fighter-head"><b>SHADOW</b><span id="shadowState">OBSERVANDO</span></div>
+            <div class="hp shadow-hp"><i id="shadowHp"></i></div><div class="fighter-pic" id="shadowPic"><img src="assets/imagem4.png" alt="Shadow"><span class="sprite-fallback">🌑</span></div>
+            <div class="fighter-caption">O GATO DO CAOS</div><div class="status-row" id="shadowStatus"></div>
+          </div>
+          <div id="battleFx" class="battle-fx" aria-hidden="true"></div>
+          <div id="battleStart" class="game-overlay">
+            <div class="overlay-panel choose-panel"><div class="overlay-symbol">🐱</div><p class="eyebrow">ESCOLHA SEU LADO</p><h3>QUEM VAI PARA A ARENA?</h3><p>Você controla um gato. O outro pensa, ataca e tenta aproveitar seus erros.</p>
+              <div class="fighter-choices">
+                <button data-pick="sky" class="fighter-choice sky-choice" type="button"><span class="choice-avatar">☁️</span><b>JOGAR COM SKY</b><small>Agilidade e combos rápidos</small></button>
+                <button data-pick="shadow" class="fighter-choice shadow-choice" type="button"><span class="choice-avatar">🌑</span><b>JOGAR COM SHADOW</b><small>Carrega energia para o Despertar</small></button>
+              </div>
+            </div>
+          </div>
+          <div id="battleEnd" class="game-overlay hidden">
+            <div class="overlay-panel result-panel"><div id="battleEndEmoji" class="overlay-symbol">🏆</div><p class="eyebrow">FIM DA BATALHA</p><h3 id="battleEndTitle">VITÓRIA FELINA!</h3><p id="battleEndText"></p><div class="result-number"><small>RODADA FINAL</small><strong id="battleFinal">1</strong></div><button id="battleAgain" class="primary-btn full-btn" type="button">NOVA BATALHA <span>↻</span></button><button class="quiet-btn" data-home type="button">Voltar ao cantinho</button></div>
+          </div>
+        </div>
+
+        <aside class="battle-panel">
+          <div class="panel-topline"><div><small>SEU GATO</small><strong id="playerName">—</strong></div><div class="turn-pill" id="turnPill">ESCOLHA</div></div>
+          <div class="shadow-energy" id="shadowEnergyPanel">
+            <div class="energy-heading"><span>🌀 ENERGIA DO SHADOW</span><b id="energyText">0 / 100</b></div>
+            <div class="energy-meter"><i id="energyBar"></i></div>
+            <small id="awakeningStatus">O Despertar ainda não foi liberado.</small>
+          </div>
+          <div class="battle-actions" id="battleActions">
+            <button data-action="claw" type="button" disabled><span class="action-icon">🐾</span><b>ARRANHÃO</b><small>Golpe rápido e preciso</small></button>
+            <button data-action="pounce" type="button" disabled><span class="action-icon">💨</span><b>BOTE</b><small>Mais dano; pode errar</small></button>
+            <button data-action="guard" type="button" disabled><span class="action-icon">🛡️</span><b>ESQUIVA</b><small>Reduz o próximo ataque</small></button>
+            <button data-action="snack" type="button" disabled><span class="action-icon">🍗</span><b>PETISCO</b><small id="snackCount">2 por batalha</small></button>
+            <button data-action="taunt" type="button" disabled><span class="action-icon">😼</span><b>ENCARADA</b><small>Enfraquece o próximo golpe</small></button>
+            <button id="chaosAction" data-action="awakening" class="awakening-action" type="button" disabled hidden><span class="action-icon">🌀</span><b>DESPERTAR</b><small>Chaos Control · Shadow</small></button>
+          </div>
+          <div class="battle-combo"><div><span>SEQUÊNCIA</span><b id="comboText">0</b></div><div class="combo-meter"><i id="comboBar"></i></div></div>
+          <div id="battleLog" class="battle-log" role="status" aria-live="polite">Escolha Sky ou Shadow para iniciar a luta.</div>
+          <div class="battle-note"><span>✦</span><span>O Despertar pertence somente ao Shadow. Se ele estiver do outro lado, a IA também pode ativá-lo.</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- OPERAÇÃO PETISCO -->
+    <section id="snack" class="page game-page" aria-labelledby="snackTitle">
+      <div class="game-top">
+        <button class="back-btn" data-home type="button"><span>←</span> Cantinho</button>
+        <div class="game-title-group"><span class="game-title-icon">🍗</span><div><p class="eyebrow">JOGO 03 · CAOS FELINO</p><h2 id="snackTitle">Operação Petisco</h2></div></div>
+        <div class="top-stat"><small>PONTOS</small><strong id="snackScore">0</strong></div>
+      </div>
+
+      <div class="snack-layout">
+        <div class="snack-hud">
+          <div class="hud-card"><small>TEMPO</small><strong id="snackTime">45s</strong></div>
+          <div class="hud-card"><small>COMBO</small><strong id="snackCombo">x0</strong></div>
+          <div class="hud-card"><small>VIDAS</small><strong id="snackLives">♥ ♥ ♥</strong></div>
+        </div>
+        <div id="snackBoard" class="snack-board" aria-label="Campo de petiscos. Arraste o gato para pegar os petiscos."
+             tabindex="0">
+          <div class="snack-backdrop"><span>🐾</span><span>✦</span><span>🐾</span><span>✦</span></div>
+          <div id="snackMessage" class="snack-message" aria-live="polite"></div>
+          <div id="snackPlayer" class="snack-player"><img id="snackPlayerImg" src="assets/imagem4.png" alt="Gato escolhido"><span class="snack-fallback">😼</span><small id="snackPlayerName">SHADOW</small></div>
+          <div id="snackItems" class="snack-items"></div>
+          <div id="snackStart" class="game-overlay">
+            <div class="overlay-panel">
+              <div class="overlay-symbol">🍗</div><p class="eyebrow">OPERAÇÃO PETISCO</p><h3>O PETISCO É DE QUEM PEGAR.</h3>
+              <p>Escolha Sky ou Shadow e arraste o gato para pegar os petiscos que caem. Alguns itens são armadilhas. Quanto maior o combo, maior a bagunça.</p>
+              <div class="fighter-choices snack-choices">
+                <button id="snackPickSky" class="fighter-choice sky-choice" type="button"><span class="choice-avatar">☁️</span><b>SKY</b><small>Mais rápida, combo mais fácil</small></button>
+                <button id="snackPickShadow" class="fighter-choice shadow-choice" type="button"><span class="choice-avatar">🌑</span><b>SHADOW</b><small>Mais resistente às armadilhas</small></button>
+              </div>
+              <button id="snackStartBtn" class="primary-btn full-btn" type="button" disabled>COMEÇAR A OPERAÇÃO <span>→</span></button>
+            </div>
+          </div>
+          <div id="snackEnd" class="game-overlay hidden">
+            <div class="overlay-panel result-panel"><div id="snackEndEmoji" class="overlay-symbol">🍗</div><p class="eyebrow">RELATÓRIO DA OPERAÇÃO</p><h3 id="snackEndTitle">O PETISCO ACABOU.</h3><p id="snackEndText"></p><div class="result-number"><small>PONTUAÇÃO FINAL</small><strong id="snackFinal">0</strong></div><button id="snackAgain" class="primary-btn full-btn" type="button">JOGAR DE NOVO <span>↻</span></button><button class="quiet-btn" data-home type="button">Voltar ao cantinho</button></div>
+          </div>
+          <div class="snack-controls"><span>☝ ARRASTE O GATO</span><span>🍗 +PONTOS</span><span>🥒 -VIDA</span></div>
+        </div>
+        <div class="snack-bottomline"><span>🍗 Petisco dourado = muitos pontos</span><span>🥒 Legume = perde uma vida</span><span>💥 Combo aumenta a pontuação</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>♡ Cantinho da Sarah</span><span>feito para a Sarah e seus gatos</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
